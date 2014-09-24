@@ -1,0 +1,8 @@
+{
+    "git": {
+        "file": "git.json"
+    },
+    "npm": {
+        "file": "npm.json"
+    }
+}

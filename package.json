@@ -1,0 +1,24 @@
+{
+  "name": "proteus",
+  "version": "0.0.1",
+  "description": "Simple Searchable Cheat Sheets",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/xeronimus/proteus.git"
+  },
+  "keywords": [
+    "cheat",
+    "sheets"
+  ],
+  "author": "Xeronimus <xeronimus@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xeronimus/proteus/issues"
+  },
+  "homepage": "https://github.com/xeronimus/proteus",
+  "devDependencies": {
+    "gulp": "~3.8.8",
+    "browser-sync": "~1.5.1",
+    "gulp-jade": "~0.8.0"
+  }
+}

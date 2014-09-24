@@ -1,0 +1,58 @@
+mixin cheat
+    div.cheat-description {{cheat.description}}
+        div.cheat-comment(ng-if="cheat.comment") {{cheat.comment}}
+        div.cheat-command
+            span.cmd-sign $&nbsp;
+            span {{cheat.command}}
+
+html
+    head
+        script(src="bower_components/jquery/dist/jquery.min.js")
+        script(src="bower_components/bootstrap/dist/js/bootstrap.min.js")
+        link(href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet")
+        link(href="styles/style.css" rel="stylesheet")
+
+
+    body(ng-app="cheatSheets" ng-controller="CheatSheetController as cheatSheet")
+        div.navbar.navbar-inverse.navbar-fixed-top(role='navigation')
+            div.container
+                div.navbar-header
+                    button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='.navbar-collapse')
+                        span.sr-only Toggle navigation
+                        span.icon-bar
+                        span.icon-bar
+                        span.icon-bar
+                    a.navbar-brand(href='#') Cheat Sheets
+                div.navbar-collapse.collapse
+                    ul.nav.navbar-nav
+                        li(ng-repeat="(csTitle,csDetail) in cheatSheet.index")
+                            a(ng-click="cheatSheet.selectCheetSheet(csDetail)" ng-href="#/{{csTitle}}") {{csTitle}}
+
+        div.container.main-container(ng-show="cheatSheet.status.id==2")
+            div.row.cheatsheet-header
+                div.col-sm-7.col-xs-5
+                    h1 {{cheatSheet.currentCheatSheet.title}}
+                div.col-sm-5.col-xs-7
+                    input.form-control(type="text" ng-model="searchQuery" placeholder="Filter...")
+            div.row
+                div.col-sm-6
+                    div.chapter(ng-repeat="chapter in cheatSheet.currentCheatSheet.chapters | filter:searchQuery | everyOtherItem:false")
+                        h2 {{chapter.title}}
+                        div.cheat(ng-repeat="cheat in chapter.cheats | filter:searchQuery")
+                            +cheat
+                div.col-sm-6
+                    div.chapter(ng-repeat="chapter in cheatSheet.currentCheatSheet.chapters | filter:searchQuery |everyOtherItem:true")
+                        h2 {{chapter.title}}
+                        div.cheat(ng-repeat="cheat in chapter.cheats | filter:searchQuery")
+                            +cheat
+
+        div.container.main-container(ng-show="cheatSheet.status.id==3")
+            div.row
+                div.col-xs-12
+                    div.alert.alert-danger {{cheatSheet.status.message}}
+
+        script(src="bower_components/angular/angular.js")
+        script(src="scripts/module.js")
+        script(src="scripts/CheatSheetController.js")
+        script(src="scripts/CheatSheetProvider.js")
+        script(src="scripts/EveryOtherItemFilter.js")
