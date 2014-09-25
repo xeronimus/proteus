@@ -1,4 +1,4 @@
-# npm
+# npm Node Packaged Modules
 ## find and install
 Search for npm package with name <package>
 $ npm search <package>

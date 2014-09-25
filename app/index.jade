@@ -25,13 +25,13 @@ html
                     a.navbar-brand(href='#') Cheat Sheets
                 div.navbar-collapse.collapse
                     ul.nav.navbar-nav
-                        li(ng-repeat="(csTitle,csDetail) in cheatSheet.index")
-                            a(ng-click="cheatSheet.selectCheetSheet(csDetail)" ng-href="#/{{csTitle}}") {{csTitle}}
+                        li(ng-repeat="cs in cheatSheet.index")
+                            a(ng-click="cheatSheet.selectCheetSheet(cs)" ng-href="#/{{cs}}") {{cs}}
 
         div.container.main-container(ng-show="cheatSheet.status.id==2")
             div.row.cheatsheet-header
                 div.col-sm-7.col-xs-5
-                    h1 {{cheatSheet.currentCheatSheet.title}}
+                    h1 {{cheatSheet.currentCheatSheet.id}} {{cheatSheet.currentCheatSheet.title}}
                 div.col-sm-5.col-xs-7
                     input.form-control(type="text" ng-model="searchQuery" placeholder="Filter...")
             div.row

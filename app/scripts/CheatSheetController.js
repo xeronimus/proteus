@@ -9,8 +9,8 @@ function CheatSheetController($location, CheatSheetStore) {
     vm.selectCheetSheet = selectCheetSheet;
 
 
-    function selectCheetSheet(details) {
-        CheatSheetStore.getCheatSheetContent(details.file).then(function (data) {
+    function selectCheetSheet(cs) {
+        CheatSheetStore.getCheatSheetContent(cs + '.json').then(function (data) {
             vm.currentCheatSheet = data;
             vm.status = OK;
         }, function () {

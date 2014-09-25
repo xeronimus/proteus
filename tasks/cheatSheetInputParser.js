@@ -8,7 +8,7 @@ function getNewCheatSheetFromFirstLine(line) {
     var parts = line.substr(2).split(' ');
     return {
         id: parts[0],
-        title: (parts.length > 1) ? parts[1] : parts[0],
+        title: (parts.length > 1) ? parts.splice(1).join(' ') : '',
         chapters: []
     };
 }

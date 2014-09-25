@@ -22,6 +22,6 @@
     "gulp-jade": "~0.8.0",
     "q": "~1.0.1",
     "gulp-file-parser": "0.0.1",
-    "gulp-rename": "~1.2.0"
+    "gulp-tap": "~0.1.1"
   }
 }

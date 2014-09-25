@@ -14,7 +14,7 @@
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li ng-repeat="(csTitle,csDetail) in cheatSheet.index"><a ng-click="cheatSheet.selectCheetSheet(csDetail)" ng-href="#/{{csTitle}}">{{csTitle}}</a></li>
+            <li ng-repeat="cs in cheatSheet.index"><a ng-click="cheatSheet.selectCheetSheet(cs)" ng-href="#/{{cs}}">{{cs}}</a></li>
           </ul>
         </div>
       </div>
@@ -22,7 +22,7 @@
     <div ng-show="cheatSheet.status.id==2" class="container main-container">
       <div class="row cheatsheet-header">
         <div class="col-sm-7 col-xs-5">
-          <h1>{{cheatSheet.currentCheatSheet.title}}</h1>
+          <h1>{{cheatSheet.currentCheatSheet.id}} {{cheatSheet.currentCheatSheet.title}}</h1>
         </div>
         <div class="col-sm-5 col-xs-7">
           <input type="text" ng-model="searchQuery" placeholder="Filter..." class="form-control"/>
