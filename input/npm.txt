@@ -1,0 +1,17 @@
+# npm
+## find and install
+Search for npm package with name <package>
+$ npm search <package>
+View details of a npm package
+$ npm view <package>
+Installing a npm package locally
+$ npm install <package>
+Install a npm package globally
+$ npm install <package> -g
+Installing a specific version
+$ npm install <package>@<version>
+## uninstall
+Uninstalling a local package
+$ npm uninstall <package>
+Uninstalling a global package
+$ npm uninstall <package> -g

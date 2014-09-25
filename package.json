@@ -19,6 +19,9 @@
   "devDependencies": {
     "gulp": "~3.8.8",
     "browser-sync": "~1.5.1",
-    "gulp-jade": "~0.8.0"
+    "gulp-jade": "~0.8.0",
+    "q": "~1.0.1",
+    "gulp-file-parser": "0.0.1",
+    "gulp-rename": "~1.2.0"
   }
 }

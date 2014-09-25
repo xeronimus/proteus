@@ -1,8 +1,10 @@
 {
     "git": {
+        "title": "git",
         "file": "git.json"
     },
     "npm": {
+        "title": "npm",
         "file": "npm.json"
     }
 }
