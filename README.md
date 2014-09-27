@@ -1,5 +1,9 @@
 # proteus - Simple Searchable Cheat Sheets
 
+[![Build Status](https://travis-ci.org/xeronimus/proteus.png?branch=master)](https://travis-ci.org/xeronimus/proteus)
+
+***
+
 
 ## Use
 
