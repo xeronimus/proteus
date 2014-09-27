@@ -11,7 +11,7 @@ function CheatSheetStore($http, $q) {
 
     function getCheatSheetContent(csFileName) {
         var deferred = $q.defer();
-        $http.get('/storage/' + csFileName).success(function (data) {
+        $http.get('storage/' + csFileName).success(function (data) {
             var csData = angular.fromJson(data);
             deferred.resolve(csData);
         }).error(function () {
@@ -22,7 +22,7 @@ function CheatSheetStore($http, $q) {
 
     function getCheatSheetIndex() {
         var deferred = $q.defer();
-        $http.get('/storage/index.json').success(function (data) {
+        $http.get('storage/index.json').success(function (data) {
             csIndex = angular.fromJson(data);
             deferred.resolve(csIndex);
         }).error(function () {

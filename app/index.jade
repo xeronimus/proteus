@@ -57,6 +57,12 @@ html
                     div.alert.alert-danger.alert-error(ng-show="cheatSheet.status.id == 3") {{cheatSheet.status.message}}
                     div.alert.alert-info.alert-no-cs-selected(ng-show="cheatSheet.status.id == 4 ") Please select a cheat sheet...
 
+
+        div.footer
+            div.container
+                p.text-muted Want to add new cheats? See&nbsp;
+                    a(href="https://github.com/xeronimus/proteus") github.com/xeronimus/proteus
+
         // build:vendorjs
         script(src="bower_components/jquery/dist/jquery.min.js")
         script(src="bower_components/bootstrap/dist/js/bootstrap.min.js")

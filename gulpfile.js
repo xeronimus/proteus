@@ -140,12 +140,12 @@ gulp.task('assemble', ['clean'], function () {
     //  concatenates our own css files
     gulp.src('./app/styles/*.css')
         .pipe(plugins.concat('app.css'))
-        .pipe(gulp.dest('./build'));
+        .pipe(gulp.dest('./build/styles'));
 
     // concatenate all 3rd party css files (bower_components)
     gulp.src(['./app/bower_components/**/dist/**/*.css', '!*.min.css'])
         .pipe(plugins.concat('vendor.css'))
-        .pipe(gulp.dest('./build'));
+        .pipe(gulp.dest('./build/styles'));
 
     // copies storage (cheat sheet files) , images
     gulp.src('./app/storage/*.json')
@@ -163,14 +163,23 @@ var htmlreplace = require('gulp-html-replace');
 gulp.task('html-replace', ['clean', 'assemble'], function () {
     gulp.src('./app/index.html')
         .pipe(htmlreplace({
-            'vendorcss': 'vendor.css',
+            'vendorcss': 'styles/vendor.css',
             'vendorjs': 'vendor.js',
-            'css': 'app.css',
+            'css': 'styles/app.css',
             'js': 'app.js'
         }))
         .pipe(gulp.dest('build/'));
 });
 
+
+/**
+ *
+ * */
+var deploy = require('gulp-gh-pages');
+gulp.task('deploy', function () {
+    gulp.src("./build/**/*")
+        .pipe(deploy());
+});
 
 /**
  *  The default task
