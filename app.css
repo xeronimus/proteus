@@ -1,0 +1,49 @@
+.chapter h2 {
+    text-transform: uppercase;
+    font-size: 12px;
+    text-align: right;
+    background: #444;
+    padding: 4px;
+    color: #ECFCC2;
+}
+
+.main-container {
+    /** 50 for the fixed nav bar plus 24 additional space **/
+    padding-top: 74px;
+}
+
+.cheatsheet-header .form-control {
+    margin: 23px 0px 10px 0px;
+}
+
+.cheat .cheat-description, .cheat .cheat-command {
+    padding: 4px;
+}
+
+.cheat .cheat-description {
+    margin-top: 4px;
+}
+
+.cheat .cheat-command {
+    background: #ECFCC2;
+    font-family: courier;
+    font-weight: bold;
+}
+
+.cheat .cheat-comment {
+    color: #888;
+    font-style: italic;
+}
+
+.cmd-sign {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.navbar a.spinner {
+    background: transparent url('../images/ajax-loader.gif') no-repeat left center;
+}
