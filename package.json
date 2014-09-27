@@ -22,6 +22,7 @@
     "gulp-jade": "~0.8.0",
     "q": "~1.0.1",
     "gulp-file-parser": "0.0.1",
-    "gulp-tap": "~0.1.1"
+    "gulp-tap": "~0.1.1",
+    "gulp-eslint": "~0.1.8"
   }
 }

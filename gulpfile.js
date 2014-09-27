@@ -1,4 +1,6 @@
-var gulp = require('gulp');
+var
+    gulp = require('gulp'),
+    gutil = require('gulp-util');
 
 /**
  *
@@ -47,21 +49,37 @@ gulp.task('parseInput', function (done) {
 
     var processedInputFiles = [];
     var stream = gulp.src(['input/**/*.txt', '!input/**/index.txt'])
-        .pipe(cheatSheetInputParser())
         .pipe(tap(function (file) {
-            processedInputFiles.push(path.basename(file.path, '.json'));
+            var filename = path.basename(file.path, '.json');
+            gutil.log('Parsing input file', '\'' + gutil.colors.cyan(filename) + '\'');
+            processedInputFiles.push(gutil.replaceExtension(filename, ''));
         }))
+        .pipe(cheatSheetInputParser())
         .pipe(gulp.dest('app/storage/'));
 
     stream.on('end', function () {
-        fs.writeFile('app/storage/index.json', JSON.stringify(processedInputFiles), done);
+        var allProcessedFiles = JSON.stringify(processedInputFiles);
+        fs.writeFile('app/storage/index.json', allProcessedFiles, done);
+        gutil.log('Writing index', allProcessedFiles);
     });
 
 });
 
 gulp.task('parseInputWatch', ['parseInput'], function () {
-    gulp.watch(['input/**/*.txt', '!input/**/index.txt'], { }, ['parseInput']);
+    gulp.watch(['input/**/*.txt', '!input/**/index.txt'], {}, ['parseInput']);
 });
+
+
+/**
+ *
+ * */
+var eslint = require('gulp-eslint');
+gulp.task('lint', function () {
+    gulp.src(['app/**/*.js','!app/bower_components/**/*'])
+        .pipe(eslint())
+        .pipe(eslint.format());
+});
+
 
 /**
  *
