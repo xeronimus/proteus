@@ -1,3 +1,6 @@
+/**
+ * Returns every other item within a given collection.
+ */
 function EveryOtherItemFilter() {
 
     return function (items, even) {

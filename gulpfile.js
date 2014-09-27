@@ -3,7 +3,7 @@ var
     gutil = require('gulp-util');
 
 /**
- *
+ *   compiles our jade files to html
  * */
 var jade = require('gulp-jade');
 gulp.task('jade', function () {
@@ -18,7 +18,7 @@ gulp.task('jade', function () {
 });
 
 /**
- *
+ * Starts the app with browser-sync
  * */
 var browserSync = require('browser-sync');
 var reload = browserSync.reload;
@@ -71,20 +71,41 @@ gulp.task('parseInputWatch', ['parseInput'], function () {
 
 
 /**
- *
+ *  Lints all js files in /app with ESLint
  * */
 var eslint = require('gulp-eslint');
 gulp.task('lint', function () {
-    gulp.src(['app/**/*.js','!app/bower_components/**/*'])
+    gulp.src(['app/**/*.js', 'test/**/*.js', '!app/bower_components/**/*'])
         .pipe(eslint())
         .pipe(eslint.format());
 });
 
 
 /**
+ * Runs our mocha unit tests with karma
+ * */
+var karma = require('karma').server;
+gulp.task('test', function (done) {
+    karma.start({
+        configFile: __dirname + '/karma.conf.js',
+        singleRun: true
+    }, done);
+});
+
+
+/**
+ * Watch for file changes and re-run tests on each change
+ */
+gulp.task('tdd', function (done) {
+    karma.start({
+        configFile: __dirname + '/karma.conf.js'
+    }, done);
+});
+
+/**
  *
  * */
-gulp.task('default', function () {
+gulp.task('default', ['lint', 'test'], function () {
     // place code for your default task here
 });
 

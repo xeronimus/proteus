@@ -1,28 +1,36 @@
 {
-  "name": "proteus",
-  "version": "0.0.1",
-  "description": "Simple Searchable Cheat Sheets",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/xeronimus/proteus.git"
-  },
-  "keywords": [
-    "cheat",
-    "sheets"
-  ],
-  "author": "Xeronimus <xeronimus@gmail.com>",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/xeronimus/proteus/issues"
-  },
-  "homepage": "https://github.com/xeronimus/proteus",
-  "devDependencies": {
-    "gulp": "~3.8.8",
-    "browser-sync": "~1.5.1",
-    "gulp-jade": "~0.8.0",
-    "q": "~1.0.1",
-    "gulp-file-parser": "0.0.1",
-    "gulp-tap": "~0.1.1",
-    "gulp-eslint": "~0.1.8"
-  }
+    "name": "proteus",
+    "version": "0.0.1",
+    "description": "Simple Searchable Cheat Sheets",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/xeronimus/proteus.git"
+    },
+    "keywords": [
+        "cheat sheets"
+    ],
+    "scripts": {
+        "postinstall": "bower install"
+    },
+    "author": "Xeronimus <xeronimus@gmail.com>",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/xeronimus/proteus/issues"
+    },
+    "homepage": "https://github.com/xeronimus/proteus",
+    "devDependencies": {
+        "q": "~1.0.1",
+        "gulp": "~3.8.8",
+        "gulp-util": "~3.0.1",
+        "gulp-jade": "~0.8.0",
+        "gulp-file-parser": "0.0.1",
+        "gulp-tap": "~0.1.1",
+        "gulp-eslint": "~0.1.8",
+        "browser-sync": "~1.5.1",
+        "karma": "~0.12.23",
+        "karma-expect": "~1.1.0",
+        "karma-mocha": "~0.1.9",
+        "mocha": "~1.21.4",
+        "karma-phantomjs-launcher": "~0.1.4"
+    }
 }
