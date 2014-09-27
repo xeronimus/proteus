@@ -20,5 +20,3 @@ function EveryOtherItemFilter() {
 }
 
 angular.module('cheatSheets').filter('everyOtherItem', EveryOtherItemFilter);
-
-

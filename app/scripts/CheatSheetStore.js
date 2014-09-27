@@ -5,29 +5,9 @@ function CheatSheetStore($http, $q) {
 
     return {
         getCheatSheetContent: getCheatSheetContent,
-        getCheatSheetById: getCheatSheetById,
         getCheatSheetIndex: getCheatSheetIndex
     };
 
-
-    function getCheatSheetById(cheatSheetId) {
-        if (angular.isUndefined(csIndex)) {
-            throw new Error('Please load Cheat Sheet Index first');
-        }
-        if (angular.isDefined(csIndex[cheatSheetId])) {
-            return csIndex[cheatSheetId];
-        } else {
-            return getFirstCheatSheetOrUndefined();
-        }
-    }
-
-    function getFirstCheatSheetOrUndefined() {
-        var keys = Object.keys(csIndex);
-        if (keys.length > 0) {
-            return csIndex[keys[0]];
-        }
-        return undefined;
-    }
 
     function getCheatSheetContent(csFileName) {
         var deferred = $q.defer();
@@ -54,5 +34,3 @@ function CheatSheetStore($http, $q) {
 }
 
 angular.module('cheatSheets').factory('CheatSheetStore', CheatSheetStore);
-
-

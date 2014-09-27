@@ -16,10 +16,13 @@
           <ul class="nav navbar-nav">
             <li ng-repeat="cs in cheatSheet.index"><a ng-click="cheatSheet.selectCheetSheet(cs)" ng-href="#/{{cs}}">{{cs}}</a></li>
           </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li ng-show="cheatSheet.status.id == 1"><a class="spinner">&nbsp;</a></li>
+          </ul>
         </div>
       </div>
     </div>
-    <div ng-show="cheatSheet.status.id==2" class="container main-container">
+    <div ng-show="cheatSheet.status.id == 2 || cheatSheet.status.id == 1 " class="container main-container">
       <div class="row cheatsheet-header">
         <div class="col-sm-7 col-xs-5">
           <h1>{{cheatSheet.currentCheatSheet.id}} {{cheatSheet.currentCheatSheet.title}}</h1>
@@ -53,10 +56,11 @@
         </div>
       </div>
     </div>
-    <div ng-show="cheatSheet.status.id==3" class="container main-container">
+    <div ng-show="cheatSheet.status.id!=2" class="container main-container">
       <div class="row">
         <div class="col-xs-12">
-          <div class="alert alert-danger">{{cheatSheet.status.message}}</div>
+          <div ng-show="cheatSheet.status.id == 3" class="alert alert-danger alert-error">{{cheatSheet.status.message}}</div>
+          <div ng-show="cheatSheet.status.id == 4 " class="alert alert-info alert-no-cs-selected">Please select a cheat sheet...</div>
         </div>
       </div>
     </div>

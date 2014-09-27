@@ -27,8 +27,11 @@ html
                     ul.nav.navbar-nav
                         li(ng-repeat="cs in cheatSheet.index")
                             a(ng-click="cheatSheet.selectCheetSheet(cs)" ng-href="#/{{cs}}") {{cs}}
+                    ul.nav.navbar-nav.navbar-right
+                        li(ng-show="cheatSheet.status.id == 1")
+                            a.spinner &nbsp;
 
-        div.container.main-container(ng-show="cheatSheet.status.id==2")
+        div.container.main-container(ng-show="cheatSheet.status.id == 2 || cheatSheet.status.id == 1 ")
             div.row.cheatsheet-header
                 div.col-sm-7.col-xs-5
                     h1 {{cheatSheet.currentCheatSheet.id}} {{cheatSheet.currentCheatSheet.title}}
@@ -46,10 +49,11 @@ html
                         div.cheat(ng-repeat="cheat in chapter.cheats | filter:searchQuery")
                             +cheat
 
-        div.container.main-container(ng-show="cheatSheet.status.id==3")
+        div.container.main-container(ng-show="cheatSheet.status.id!=2")
             div.row
                 div.col-xs-12
-                    div.alert.alert-danger {{cheatSheet.status.message}}
+                    div.alert.alert-danger.alert-error(ng-show="cheatSheet.status.id == 3") {{cheatSheet.status.message}}
+                    div.alert.alert-info.alert-no-cs-selected(ng-show="cheatSheet.status.id == 4 ") Please select a cheat sheet...
 
         script(src="bower_components/angular/angular.js")
         script(src="scripts/module.js")

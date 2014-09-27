@@ -3,32 +3,33 @@ function CheatSheetController($location, CheatSheetStore) {
     var LOADING = {id: 1, message: 'Loading...'};
     var OK = {id: 2, message: 'Ready'};
     var ERROR = {id: 3, message: 'Something went wrong!'};
+    var NO_CS_SELECTED = {id: 4 };
 
     vm.currentCheatSheet = undefined;
     vm.status = LOADING;
     vm.selectCheetSheet = selectCheetSheet;
 
+    function selectCheetSheet(givenCheatSheetId) {
 
-    function selectCheetSheet(cs) {
-        CheatSheetStore.getCheatSheetContent(cs + '.json').then(function (data) {
+        if (!givenCheatSheetId || givenCheatSheetId.length < 1) {
+            vm.status = NO_CS_SELECTED;
+            return;
+        }
+
+        vm.status = LOADING;
+        CheatSheetStore.getCheatSheetContent(givenCheatSheetId + '.json').then(function (data) {
             vm.currentCheatSheet = data;
             vm.status = OK;
         }, function () {
             vm.status = ERROR;
-            vm.status.message = 'Could not load cheat sheet "' + details.file;
+            vm.status.message = 'Could not load cheat sheet "' + givenCheatSheetId + '"';
         });
     }
 
     function loadIndex() {
         CheatSheetStore.getCheatSheetIndex().then(function (data) {
             vm.index = data;
-            var cheatSheetToDisplay = CheatSheetStore.getCheatSheetById($location.path().substr(1));
-            if (angular.isDefined(cheatSheetToDisplay)) {
-                selectCheetSheet(cheatSheetToDisplay);
-            } else {
-                vm.status = ERROR;
-                vm.status.message = 'No Cheat Sheets to display...';
-            }
+            selectCheetSheet($location.path().substr(1));
         }, function () {
             vm.status = ERROR;
             vm.status.message = 'Could not load cheat sheet index!';
@@ -40,5 +41,3 @@ function CheatSheetController($location, CheatSheetStore) {
 }
 
 angular.module('cheatSheets').controller('CheatSheetController', CheatSheetController);
-
-
