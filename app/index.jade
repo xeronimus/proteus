@@ -7,11 +7,13 @@ mixin cheat
 
 html
     head
-        script(src="bower_components/jquery/dist/jquery.min.js")
-        script(src="bower_components/bootstrap/dist/js/bootstrap.min.js")
+        // build:vendorcss
         link(href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet")
-        link(href="styles/style.css" rel="stylesheet")
+        // endbuild
 
+        // build:css
+        link(href="styles/style.css" rel="stylesheet")
+        // endbuild
 
     body(ng-app="cheatSheets" ng-controller="CheatSheetController as cheatSheet")
         div.navbar.navbar-inverse.navbar-fixed-top(role='navigation')
@@ -55,8 +57,15 @@ html
                     div.alert.alert-danger.alert-error(ng-show="cheatSheet.status.id == 3") {{cheatSheet.status.message}}
                     div.alert.alert-info.alert-no-cs-selected(ng-show="cheatSheet.status.id == 4 ") Please select a cheat sheet...
 
+        // build:vendorjs
+        script(src="bower_components/jquery/dist/jquery.min.js")
+        script(src="bower_components/bootstrap/dist/js/bootstrap.min.js")
         script(src="bower_components/angular/angular.js")
+        // endbuild
+
+        // build:js
         script(src="scripts/module.js")
         script(src="scripts/CheatSheetController.js")
         script(src="scripts/CheatSheetStore.js")
         script(src="scripts/EveryOtherItemFilter.js")
+        // endbuild

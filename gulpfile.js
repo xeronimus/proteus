@@ -1,6 +1,7 @@
 var
     gulp = require('gulp'),
-    gutil = require('gulp-util');
+    gutil = require('gulp-util'),
+    plugins = require('gulp-load-plugins')({lazy: false});
 
 /**
  *   compiles our jade files to html
@@ -95,18 +96,86 @@ gulp.task('test', function (done) {
 
 /**
  * Watch for file changes and re-run tests on each change
- */
+ * */
 gulp.task('tdd', function (done) {
     karma.start({
         configFile: __dirname + '/karma.conf.js'
     }, done);
 });
 
+
 /**
- *
+ * Build
  * */
-gulp.task('default', ['lint', 'test'], function () {
-    // place code for your default task here
+gulp.task('build', [ 'lint', 'jade', 'test', 'assemble', 'html-replace']);
+
+var del = require('del');
+gulp.task('clean', function (cb) {
+    del(['./build'], function (err) {
+        if (err) {
+            cb(err);
+            return;
+        }
+        gutil.log('Cleaned build directory...');
+        cb();
+    });
+});
+
+
+/**
+ * assembles all files and copies them to ./build/
+ * */
+gulp.task('assemble', ['clean'], function () {
+
+    // concatenates our own js files
+    gulp.src(['./app/scripts/module.js', './app/scripts/*.js'])
+        .pipe(plugins.concat('app.js'))
+        .pipe(gulp.dest('./build'));
+
+    // concatenate all 3rd party js files (bower_components)
+    gulp.src(['./app/bower_components/**/dist/**/*.js', './app/bower_components/**/build/*.js', './app/bower_components/angular/angular.js'])
+        .pipe(plugins.concat('vendor.js'))
+        .pipe(gulp.dest('./build/'));
+
+    //  concatenates our own css files
+    gulp.src('./app/styles/*.css')
+        .pipe(plugins.concat('app.css'))
+        .pipe(gulp.dest('./build'));
+
+    // concatenate all 3rd party css files (bower_components)
+    gulp.src(['./app/bower_components/**/dist/**/*.css', '!*.min.css'])
+        .pipe(plugins.concat('vendor.css'))
+        .pipe(gulp.dest('./build'));
+
+    // copies storage (cheat sheet files) , images
+    gulp.src('./app/storage/*.json')
+        .pipe(gulp.dest('./build/storage'));
+    gulp.src('./app/images/*')
+        .pipe(gulp.dest('./build/images'));
+
+});
+
+
+/**
+ *  replace build blocks in index.html
+ */
+var htmlreplace = require('gulp-html-replace');
+gulp.task('html-replace', ['clean', 'assemble'], function () {
+    gulp.src('./app/index.html')
+        .pipe(htmlreplace({
+            'vendorcss': 'vendor.css',
+            'vendorjs': 'vendor.js',
+            'css': 'app.css',
+            'js': 'app.js'
+        }))
+        .pipe(gulp.dest('build/'));
+});
+
+
+/**
+ *  The default task
+ * */
+gulp.task('default', ['build'], function () {
 });
 
 

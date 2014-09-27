@@ -1,10 +1,12 @@
 
 <html>
   <head>
-    <script src="bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- build:vendorcss-->
     <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <!-- endbuild-->
+    <!-- build:css-->
     <link href="styles/style.css" rel="stylesheet"/>
+    <!-- endbuild-->
   </head>
   <body ng-app="cheatSheets" ng-controller="CheatSheetController as cheatSheet">
     <div role="navigation" class="navbar navbar-inverse navbar-fixed-top">
@@ -64,10 +66,16 @@
         </div>
       </div>
     </div>
+    <!-- build:vendorjs-->
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="bower_components/angular/angular.js"></script>
+    <!-- endbuild-->
+    <!-- build:js-->
     <script src="scripts/module.js"></script>
     <script src="scripts/CheatSheetController.js"></script>
     <script src="scripts/CheatSheetStore.js"></script>
     <script src="scripts/EveryOtherItemFilter.js"></script>
+    <!-- endbuild-->
   </body>
 </html>
