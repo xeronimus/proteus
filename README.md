@@ -2,10 +2,6 @@
 > Simple Searchable Cheat Sheets
 
 
-
-***
-
-
 ## Use
 
 Simply visit our project page at http://xeronimus.github.io/proteus

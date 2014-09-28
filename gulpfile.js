@@ -19,11 +19,23 @@ gulp.task('jade', function () {
 });
 
 /**
+ *   compiles our stylus files to css
+ * */
+
+var stylus = require('gulp-stylus');
+gulp.task('stylus', function () {
+    gulp.src('./app/styles/*.styl')
+        .pipe(stylus())
+        .pipe(plugins.concat('style.css'))
+        .pipe(gulp.dest('./app/styles'));
+});
+
+/**
  * Starts the app with browser-sync
  * */
 var browserSync = require('browser-sync');
 var reload = browserSync.reload;
-gulp.task('serve', ['jade', 'parseInputWatch'], function () {
+gulp.task('serve', ['jade', 'stylus', 'parseInputWatch'], function () {
     browserSync({
         server: {
             baseDir: 'app'

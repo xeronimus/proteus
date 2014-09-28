@@ -36,6 +36,7 @@
     "gulp-concat": "~2.4.1",
     "gulp-html-replace": "~1.3.0",
     "del": "~0.1.3",
-    "gulp-gh-pages": "~0.3.4"
+    "gulp-gh-pages": "~0.3.4",
+    "gulp-stylus": "~1.3.3"
   }
 }
