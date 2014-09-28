@@ -14,7 +14,6 @@ function EveryOtherItemFilter() {
             if (index % 2 === match) {
                 filteredItems.push(element);
             }
-
         });
 
         return filteredItems;

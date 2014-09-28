@@ -38,7 +38,6 @@ function CheatSheetController($location, CheatSheetStore) {
         });
     }
 
-
     loadIndex();
 }
 

@@ -1,5 +1,8 @@
+/**
+ * Provides cheat sheet data by loading them from json files.
+ *
+ */
 function CheatSheetStore($http, $q) {
-
 
     var csIndex;
 
@@ -7,7 +10,6 @@ function CheatSheetStore($http, $q) {
         getCheatSheetContent: getCheatSheetContent,
         getCheatSheetIndex: getCheatSheetIndex
     };
-
 
     function getCheatSheetContent(csFileName) {
         var deferred = $q.defer();

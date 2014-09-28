@@ -102,7 +102,8 @@ var karma = require('karma').server;
 gulp.task('test', function (done) {
     karma.start({
         configFile: __dirname + '/karma.conf.js',
-        singleRun: true
+        singleRun: true,
+        autoWatch: false
     }, done);
 });
 
@@ -112,7 +113,8 @@ gulp.task('test', function (done) {
  * */
 gulp.task('tdd', function (done) {
     karma.start({
-        configFile: __dirname + '/karma.conf.js'
+        configFile: __dirname + '/karma.conf.js',
+        autoWatch: true
     }, done);
 });
 
