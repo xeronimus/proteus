@@ -42,7 +42,8 @@ gulp.task('serve', ['jade', 'stylus', 'parseInputWatch'], function () {
         }
     });
 
-    gulp.watch(['*.jade', 'styles/**/*.css', 'scripts/**/*.js'], {cwd: 'app'}, ['jade', reload]);
+    gulp.watch(['*.jade', 'scripts/**/*.js'], {cwd: 'app'}, ['jade', reload]);
+    gulp.watch(['styles/**/*.styl'], {cwd: 'app'}, [ 'stylus', reload]);
 });
 
 /**
@@ -154,11 +155,6 @@ gulp.task('assemble', ['clean'], function () {
         .pipe(plugins.concat('app.css'))
         .pipe(gulp.dest('./build/styles'));
 
-    // concatenate all 3rd party css files (bower_components)
-    gulp.src(['./app/bower_components/**/dist/**/*.css', '!*.min.css'])
-        .pipe(plugins.concat('vendor.css'))
-        .pipe(gulp.dest('./build/styles'));
-
     // copies storage (cheat sheet files) , images
     gulp.src('./app/storage/*.json')
         .pipe(gulp.dest('./build/storage'));
@@ -175,7 +171,6 @@ var htmlreplace = require('gulp-html-replace');
 gulp.task('html-replace', ['clean', 'assemble'], function () {
     gulp.src('./app/index.html')
         .pipe(htmlreplace({
-            'vendorcss': 'styles/vendor.css',
             'vendorjs': 'vendor.js',
             'css': 'styles/app.css',
             'js': 'app.js'

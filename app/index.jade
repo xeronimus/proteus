@@ -18,25 +18,24 @@ html
         div.navbar.navbar-inverse.navbar-fixed-top(role='navigation')
             div.container
                 div.navbar-header
-                    button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='.navbar-collapse')
+                    button.navbar-toggle.collapsed(type='button' ng-click="cheatSheet.menuCollapsed = !cheatSheet.menuCollapsed")
                         span.sr-only Toggle navigation
                         span.icon-bar
                         span.icon-bar
                         span.icon-bar
                     a.navbar-brand(href='#') Cheat Sheets
-                div.navbar-collapse.collapse
+                div.navbar-collapse.collapse(collapse="cheatSheet.menuCollapsed")
                     ul.nav.navbar-nav
                         li(ng-repeat="cs in cheatSheet.index")
                             a(ng-click="cheatSheet.selectCheetSheet(cs)" ng-href="#/{{cs}}") {{cs}}
-                    ul.nav.navbar-nav.navbar-right
-                        li(ng-show="cheatSheet.status.id == 1")
-                            a.spinner &nbsp;
 
         div.container.main-container(ng-show="cheatSheet.status.id == 2 || cheatSheet.status.id == 1 ")
+
             div.row.cheatsheet-header
-                div.col-sm-7.col-xs-5
-                    h1 {{cheatSheet.currentCheatSheet.id}} {{cheatSheet.currentCheatSheet.title}}
-                div.col-sm-5.col-xs-7
+                div.col-sm-7.col-xs-12
+                    h1 {{cheatSheet.currentCheatSheet.id}}&nbsp;
+                        span(ng-show="cheatSheet.currentCheatSheet.title") - {{cheatSheet.currentCheatSheet.title}}
+                div.col-sm-5.col-xs-12
                     input.form-control(type="text" ng-model="searchQuery" placeholder="Filter...")
             div.row
                 div.col-sm-6
@@ -54,7 +53,12 @@ html
             div.row
                 div.col-xs-12
                     div.alert.alert-danger.alert-error(ng-show="cheatSheet.status.id == 3") {{cheatSheet.status.message}}
-                    div.alert.alert-info.alert-no-cs-selected(ng-show="cheatSheet.status.id == 4 ") Please select a cheat sheet...
+                    div.alert-no-cs-selected(ng-show="cheatSheet.status.id == 4 ")
+                        h2 Welcome to proteus
+                        p.lead Please select a cheat sheet...
+                        ul.nav.nav-stacked
+                            li(ng-repeat="cs in cheatSheet.index")
+                                a(ng-click="cheatSheet.selectCheetSheet(cs)" ng-href="#/{{cs}}") {{cs}}
 
 
         div.footer
@@ -63,9 +67,8 @@ html
                     a(href="https://github.com/xeronimus/proteus") github.com/xeronimus/proteus
 
         // build:vendorjs
-        script(src="bower_components/jquery/dist/jquery.min.js")
-        script(src="bower_components/bootstrap/dist/js/bootstrap.min.js")
         script(src="bower_components/angular/angular.js")
+        script(src="bower_components/angular-bootstrap/ui-bootstrap.js")
         // endbuild
 
         // build:js

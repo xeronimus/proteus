@@ -1,4 +1,4 @@
-# git
+# git Fast Version Control
 ## create
 Clone an existing repository
 $ git clone ssh://user@domain.com/repo.git

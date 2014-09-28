@@ -5,11 +5,13 @@ function CheatSheetController($location, CheatSheetStore) {
     var ERROR = {id: 3, message: 'Something went wrong!'};
     var NO_CS_SELECTED = {id: 4 };
 
+    vm.menuCollapsed = true;
     vm.currentCheatSheet = undefined;
     vm.status = LOADING;
     vm.selectCheetSheet = selectCheetSheet;
 
     function selectCheetSheet(givenCheatSheetId) {
+        vm.menuCollapsed = true;
 
         if (!givenCheatSheetId || givenCheatSheetId.length < 1) {
             vm.status = NO_CS_SELECTED;
