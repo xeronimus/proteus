@@ -148,7 +148,7 @@ gulp.task('assemble', ['clean'], function () {
         .pipe(gulp.dest('./build'));
 
     // concatenate all 3rd party js files (bower_components)
-    gulp.src(['./app/bower_components/**/dist/**/*.js', './app/bower_components/**/build/*.js', './app/bower_components/angular/angular.js'])
+    gulp.src(['./app/bower_components/**/dist/**/*.js', './app/bower_components/**/build/*.js', './app/bower_components/angular/angular.js', './app/bower_components/angular-bootstrap/ui-bootstrap.js'])
         .pipe(plugins.concat('vendor.js'))
         .pipe(gulp.dest('./build/'));
 
