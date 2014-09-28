@@ -1,4 +1,4 @@
-angular.module('cheatSheets',[]);
+angular.module('cheatSheets',['ui.bootstrap']);
 
 function CheatSheetController($location, CheatSheetStore) {
     var vm = this;
@@ -7,11 +7,13 @@ function CheatSheetController($location, CheatSheetStore) {
     var ERROR = {id: 3, message: 'Something went wrong!'};
     var NO_CS_SELECTED = {id: 4 };
 
+    vm.menuCollapsed = true;
     vm.currentCheatSheet = undefined;
     vm.status = LOADING;
     vm.selectCheetSheet = selectCheetSheet;
 
     function selectCheetSheet(givenCheatSheetId) {
+        vm.menuCollapsed = true;
 
         if (!givenCheatSheetId || givenCheatSheetId.length < 1) {
             vm.status = NO_CS_SELECTED;
@@ -38,14 +40,16 @@ function CheatSheetController($location, CheatSheetStore) {
         });
     }
 
-
     loadIndex();
 }
 
 angular.module('cheatSheets').controller('CheatSheetController', CheatSheetController);
 
+/**
+ * Provides cheat sheet data by loading them from json files.
+ *
+ */
 function CheatSheetStore($http, $q) {
-
 
     var csIndex;
 
@@ -53,7 +57,6 @@ function CheatSheetStore($http, $q) {
         getCheatSheetContent: getCheatSheetContent,
         getCheatSheetIndex: getCheatSheetIndex
     };
-
 
     function getCheatSheetContent(csFileName) {
         var deferred = $q.defer();
@@ -97,7 +100,6 @@ function EveryOtherItemFilter() {
             if (index % 2 === match) {
                 filteredItems.push(element);
             }
-
         });
 
         return filteredItems;

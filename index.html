@@ -2,31 +2,27 @@
 <html>
   <head>
     <meta name="viewport" content="width=device-width, user-scalable=no"/>
-    <link rel="stylesheet" href="styles/vendor.css">
     <link rel="stylesheet" href="styles/app.css">
   </head>
   <body ng-app="cheatSheets" ng-controller="CheatSheetController as cheatSheet">
     <div role="navigation" class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
-          <button type="button" data-toggle="collapse" data-target=".navbar-collapse" class="navbar-toggle collapsed"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="#" class="navbar-brand">Cheat Sheets</a>
+          <button type="button" ng-click="cheatSheet.menuCollapsed = !cheatSheet.menuCollapsed" class="navbar-toggle collapsed"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="#" class="navbar-brand">Cheat Sheets</a>
         </div>
-        <div class="navbar-collapse collapse">
+        <div collapse="cheatSheet.menuCollapsed" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
             <li ng-repeat="cs in cheatSheet.index"><a ng-click="cheatSheet.selectCheetSheet(cs)" ng-href="#/{{cs}}">{{cs}}</a></li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <li ng-show="cheatSheet.status.id == 1"><a class="spinner">&nbsp;</a></li>
           </ul>
         </div>
       </div>
     </div>
     <div ng-show="cheatSheet.status.id == 2 || cheatSheet.status.id == 1 " class="container main-container">
       <div class="row cheatsheet-header">
-        <div class="col-sm-7 col-xs-5">
-          <h1>{{cheatSheet.currentCheatSheet.id}} {{cheatSheet.currentCheatSheet.title}}</h1>
+        <div class="col-sm-7 col-xs-12">
+          <h1>{{cheatSheet.currentCheatSheet.id}}&nbsp;<span ng-show="cheatSheet.currentCheatSheet.title">- {{cheatSheet.currentCheatSheet.title}}</span></h1>
         </div>
-        <div class="col-sm-5 col-xs-7">
+        <div class="col-sm-5 col-xs-12">
           <input type="text" ng-model="searchQuery" placeholder="Filter..." class="form-control"/>
         </div>
       </div>
@@ -59,7 +55,13 @@
       <div class="row">
         <div class="col-xs-12">
           <div ng-show="cheatSheet.status.id == 3" class="alert alert-danger alert-error">{{cheatSheet.status.message}}</div>
-          <div ng-show="cheatSheet.status.id == 4 " class="alert alert-info alert-no-cs-selected">Please select a cheat sheet...</div>
+          <div ng-show="cheatSheet.status.id == 4 " class="alert-no-cs-selected">
+            <h2>Welcome to proteus</h2>
+            <p class="lead">Please select a cheat sheet...</p>
+            <ul class="nav nav-stacked">
+              <li ng-repeat="cs in cheatSheet.index"><a ng-click="cheatSheet.selectCheetSheet(cs)" ng-href="#/{{cs}}">{{cs}}</a></li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
