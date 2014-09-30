@@ -10,7 +10,8 @@
     "cheat sheets"
   ],
   "scripts": {
-    "postinstall": "bower install"
+    "postinstall": "bower install",
+    "test": "gulp"
   },
   "author": "Xeronimus <xeronimus@gmail.com>",
   "license": "MIT",
