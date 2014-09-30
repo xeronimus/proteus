@@ -1,1 +1,1 @@
-angular.module('cheatSheets',['ui.bootstrap']);
+angular.module('cheatSheets', ['ui.bootstrap']);

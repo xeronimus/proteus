@@ -1,21 +1,21 @@
 var
-    gulp = require('gulp'),
-    gutil = require('gulp-util'),
-    plugins = require('gulp-load-plugins')({lazy: false});
+  gulp = require('gulp'),
+  gutil = require('gulp-util'),
+  plugins = require('gulp-load-plugins')({lazy: false});
 
 /**
  *   compiles our jade files to html
  * */
 var jade = require('gulp-jade');
 gulp.task('jade', function () {
-    var YOUR_LOCALS = {};
+  var YOUR_LOCALS = {};
 
-    gulp.src('./app/*.jade')
-        .pipe(jade({
-            pretty: true,
-            locals: YOUR_LOCALS
-        }))
-        .pipe(gulp.dest('./app/'))
+  gulp.src('./app/*.jade')
+    .pipe(jade({
+      pretty: true,
+      locals: YOUR_LOCALS
+    }))
+    .pipe(gulp.dest('./app/'))
 });
 
 /**
@@ -24,10 +24,10 @@ gulp.task('jade', function () {
 
 var stylus = require('gulp-stylus');
 gulp.task('stylus', function () {
-    gulp.src('./app/styles/*.styl')
-        .pipe(stylus())
-        .pipe(plugins.concat('style.css'))
-        .pipe(gulp.dest('./app/styles'));
+  gulp.src('./app/styles/*.styl')
+    .pipe(stylus())
+    .pipe(plugins.concat('style.css'))
+    .pipe(gulp.dest('./app/styles'));
 });
 
 /**
@@ -36,14 +36,14 @@ gulp.task('stylus', function () {
 var browserSync = require('browser-sync');
 var reload = browserSync.reload;
 gulp.task('serve', ['jade', 'stylus', 'parseInputWatch'], function () {
-    browserSync({
-        server: {
-            baseDir: 'app'
-        }
-    });
+  browserSync({
+    server: {
+      baseDir: 'app'
+    }
+  });
 
-    gulp.watch(['*.jade', 'scripts/**/*.js'], {cwd: 'app'}, ['jade', reload]);
-    gulp.watch(['styles/**/*.styl'], {cwd: 'app'}, [ 'stylus', reload]);
+  gulp.watch(['*.jade', 'scripts/**/*.js'], {cwd: 'app'}, ['jade', reload]);
+  gulp.watch(['styles/**/*.styl'], {cwd: 'app'}, [ 'stylus', reload]);
 });
 
 /**
@@ -55,32 +55,32 @@ var fs = require('fs');
 var path = require('path');
 gulp.task('parseInput', function (done) {
 
-    var cheatSheetInputParser = parser({
-        name: 'cs-input',
-        func: require('./tasks/cheatSheetInputParser').parse,
-        extension: '.json'
-    });
+  var cheatSheetInputParser = parser({
+    name: 'cs-input',
+    func: require('./tasks/cheatSheetInputParser').parse,
+    extension: '.json'
+  });
 
-    var processedInputFiles = [];
-    var stream = gulp.src(['input/**/*.txt', '!input/**/index.txt'])
-        .pipe(tap(function (file) {
-            var filename = path.basename(file.path, '.json');
-            gutil.log('Parsing input file', '\'' + gutil.colors.cyan(filename) + '\'');
-            processedInputFiles.push(gutil.replaceExtension(filename, ''));
-        }))
-        .pipe(cheatSheetInputParser())
-        .pipe(gulp.dest('app/storage/'));
+  var processedInputFiles = [];
+  var stream = gulp.src(['input/**/*.txt', '!input/**/index.txt'])
+    .pipe(tap(function (file) {
+      var filename = path.basename(file.path, '.json');
+      gutil.log('Parsing input file', '\'' + gutil.colors.cyan(filename) + '\'');
+      processedInputFiles.push(gutil.replaceExtension(filename, ''));
+    }))
+    .pipe(cheatSheetInputParser())
+    .pipe(gulp.dest('app/storage/'));
 
-    stream.on('end', function () {
-        var allProcessedFiles = JSON.stringify(processedInputFiles);
-        fs.writeFile('app/storage/index.json', allProcessedFiles, done);
-        gutil.log('Writing index', allProcessedFiles);
-    });
+  stream.on('end', function () {
+    var allProcessedFiles = JSON.stringify(processedInputFiles);
+    fs.writeFile('app/storage/index.json', allProcessedFiles, done);
+    gutil.log('Writing index', allProcessedFiles);
+  });
 
 });
 
 gulp.task('parseInputWatch', ['parseInput'], function () {
-    gulp.watch(['input/**/*.txt', '!input/**/index.txt'], {}, ['parseInput']);
+  gulp.watch(['input/**/*.txt', '!input/**/index.txt'], {}, ['parseInput']);
 });
 
 
@@ -89,9 +89,9 @@ gulp.task('parseInputWatch', ['parseInput'], function () {
  * */
 var eslint = require('gulp-eslint');
 gulp.task('lint', function () {
-    gulp.src(['app/**/*.js', 'test/**/*.js', '!app/bower_components/**/*'])
-        .pipe(eslint())
-        .pipe(eslint.format());
+  gulp.src(['app/**/*.js', 'test/**/*.js', '!app/bower_components/**/*'])
+    .pipe(eslint())
+    .pipe(eslint.format());
 });
 
 
@@ -100,11 +100,11 @@ gulp.task('lint', function () {
  * */
 var karma = require('karma').server;
 gulp.task('test', function (done) {
-    karma.start({
-        configFile: __dirname + '/karma.conf.js',
-        singleRun: true,
-        autoWatch: false
-    }, done);
+  karma.start({
+    configFile: __dirname + '/karma.conf.js',
+    singleRun: true,
+    autoWatch: false
+  }, done);
 });
 
 
@@ -112,10 +112,10 @@ gulp.task('test', function (done) {
  * Watch for file changes and re-run tests on each change
  * */
 gulp.task('tdd', function (done) {
-    karma.start({
-        configFile: __dirname + '/karma.conf.js',
-        autoWatch: true
-    }, done);
+  karma.start({
+    configFile: __dirname + '/karma.conf.js',
+    autoWatch: true
+  }, done);
 });
 
 
@@ -126,14 +126,14 @@ gulp.task('build', [ 'lint', 'jade', 'test', 'assemble', 'html-replace']);
 
 var del = require('del');
 gulp.task('clean', function (cb) {
-    del(['./build'], function (err) {
-        if (err) {
-            cb(err);
-            return;
-        }
-        gutil.log('Cleaned build directory...');
-        cb();
-    });
+  del(['./build'], function (err) {
+    if (err) {
+      cb(err);
+      return;
+    }
+    gutil.log('Cleaned build directory...');
+    cb();
+  });
 });
 
 
@@ -142,26 +142,26 @@ gulp.task('clean', function (cb) {
  * */
 gulp.task('assemble', ['clean'], function () {
 
-    // concatenates our own js files
-    gulp.src(['./app/scripts/module.js', './app/scripts/*.js'])
-        .pipe(plugins.concat('app.js'))
-        .pipe(gulp.dest('./build'));
+  // concatenates our own js files
+  gulp.src(['./app/scripts/module.js', './app/scripts/*.js'])
+    .pipe(plugins.concat('app.js'))
+    .pipe(gulp.dest('./build'));
 
-    // concatenate all 3rd party js files (bower_components)
-    gulp.src(['./app/bower_components/**/dist/**/*.js', './app/bower_components/**/build/*.js', './app/bower_components/angular/angular.js', './app/bower_components/angular-bootstrap/ui-bootstrap.js'])
-        .pipe(plugins.concat('vendor.js'))
-        .pipe(gulp.dest('./build/'));
+  // concatenate all 3rd party js files (bower_components)
+  gulp.src(['./app/bower_components/**/dist/**/*.js', './app/bower_components/**/build/*.js', './app/bower_components/angular/angular.js', './app/bower_components/angular-bootstrap/ui-bootstrap.js'])
+    .pipe(plugins.concat('vendor.js'))
+    .pipe(gulp.dest('./build/'));
 
-    //  concatenates our own css files
-    gulp.src('./app/styles/*.css')
-        .pipe(plugins.concat('app.css'))
-        .pipe(gulp.dest('./build/styles'));
+  //  concatenates our own css files
+  gulp.src('./app/styles/*.css')
+    .pipe(plugins.concat('app.css'))
+    .pipe(gulp.dest('./build/styles'));
 
-    // copies storage (cheat sheet files) , images
-    gulp.src('./app/storage/*.json')
-        .pipe(gulp.dest('./build/storage'));
-    gulp.src('./app/images/*')
-        .pipe(gulp.dest('./build/images'));
+  // copies storage (cheat sheet files) , images
+  gulp.src('./app/storage/*.json')
+    .pipe(gulp.dest('./build/storage'));
+  gulp.src('./app/images/*')
+    .pipe(gulp.dest('./build/images'));
 
 });
 
@@ -171,13 +171,13 @@ gulp.task('assemble', ['clean'], function () {
  */
 var htmlreplace = require('gulp-html-replace');
 gulp.task('html-replace', ['clean', 'assemble'], function () {
-    gulp.src('./app/index.html')
-        .pipe(htmlreplace({
-            'vendorjs': 'vendor.js',
-            'css': 'styles/app.css',
-            'js': 'app.js'
-        }))
-        .pipe(gulp.dest('build/'));
+  gulp.src('./app/index.html')
+    .pipe(htmlreplace({
+      'vendorjs': 'vendor.js',
+      'css': 'styles/app.css',
+      'js': 'app.js'
+    }))
+    .pipe(gulp.dest('build/'));
 });
 
 
@@ -186,8 +186,8 @@ gulp.task('html-replace', ['clean', 'assemble'], function () {
  * */
 var deploy = require('gulp-gh-pages');
 gulp.task('deploy', function () {
-    gulp.src("./build/**/*")
-        .pipe(deploy());
+  gulp.src('./build/**/*')
+    .pipe(deploy());
 });
 
 /**
