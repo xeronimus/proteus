@@ -1,0 +1,34 @@
+# Bower Package Manager
+## most common commands
+Install package
+$ bower install <package>
+Search package
+$ bower search <package>
+Show package info
+$ bower info <package>
+Init bower.json file
+$ bower init
+## Install
+Install package
+$ bower install <package>
+Install package as dependency
+$ bower install --save <package>
+Install package as dev dependency
+$ bower install --save-dev <package>
+## Uninstall
+Uninstall package
+$ bower uninstall <package>
+Uninstall local extraneous packages
+$ bower prune
+## Update
+Update package
+$ bower update <package>
+List local packages and possible updates
+$ bower list
+## Find package
+Search package
+$ bower search <package>
+Show package info
+$ bower info <package>
+Open a package homepage into your favorite browser
+$ bower home <package>
