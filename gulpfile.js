@@ -13,6 +13,7 @@ var
   browserSync = require('browser-sync'),
   eslint = require('gulp-eslint'),
   deploy = require('gulp-gh-pages'),
+  mocha = require('gulp-mocha'),
   stylus = require('gulp-stylus');
 
 
@@ -98,9 +99,16 @@ gulp.task('lint', function () {
     .pipe(eslint.format());
 });
 
+/**
+ * Runs our inputParser unit test
+ * */
+gulp.task('infratest', function () {
+  gulp.src('test/infrastructure/**/*.js', {read: false})
+    .pipe(mocha({reporter: 'spec'}));
+});
 
 /**
- * Runs our mocha unit tests with karma
+ * Runs our mocha (frontend) unit tests with karma
  * */
 gulp.task('test', function (done) {
   karma.start({
@@ -125,7 +133,7 @@ gulp.task('tdd', function (done) {
 /**
  * Build
  * */
-gulp.task('build', [ 'lint', 'jade', 'test', 'parseInput', 'assemble', 'html-replace']);
+gulp.task('build', [ 'lint', 'jade', 'test', 'infratest', 'parseInput', 'assemble', 'html-replace']);
 
 
 gulp.task('clean', function (cb) {
