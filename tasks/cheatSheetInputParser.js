@@ -48,6 +48,11 @@ function parse(data) {
         var line = lines[i];
         var trimmedLine = line.trim();
 
+          // ignore blank lines
+        if(trimmedLine.length < 1){
+          continue;
+        }
+
         if (isChapterLine(trimmedLine)) {
             if (currentChapter) {
                 cheatSheet.chapters.push(currentChapter);
