@@ -30,7 +30,7 @@ body {
   padding-top: 74px;
 }
 .cheatsheet-header .form-control {
-  margin: 23px 0px 10px 0px;
+  margin: 23px 0 10px 0;
 }
 .cheat .cheat-description,
 .cheat .cheat-command {
@@ -56,8 +56,8 @@ body {
   -ms-user-select: none;
   user-select: none;
 }
-.nav>li>a:hover,
-.nav>li>a:focus {
+.nav > li > a:hover,
+.nav > li > a:focus {
   background-color: transparent;
   color: #444;
 }
