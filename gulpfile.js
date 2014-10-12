@@ -163,8 +163,7 @@ gulp.task('clean', function (cb) {
 /**
  * assembles all files and copies them to ./build/
  * */
-gulp.task('assemble', ['clean'], function () {
-
+gulp.task('assemble', ['clean', 'createCsStorage'], function () {
   // concatenates our own js files
   gulp.src(['./app/scripts/module.js', './app/scripts/*.js'])
     .pipe(concat('app.js'))
@@ -179,6 +178,7 @@ gulp.task('assemble', ['clean'], function () {
   gulp.src('./app/styles/*.css')
     .pipe(concat('app.css'))
     .pipe(gulp.dest('./build/styles'));
+
 
   // copies storage (cheat sheet files) , images
   gulp.src('./app/storage/*.json')
