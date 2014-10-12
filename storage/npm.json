@@ -1,0 +1,44 @@
+{
+    "id": "npm",
+    "title": "Node Packaged Modules",
+    "chapters": [
+        {
+            "cheats": [
+                {
+                    "description": "Search for npm package with name <package>",
+                    "command": "npm search <package>"
+                },
+                {
+                    "description": "View details of a npm package",
+                    "command": "npm view <package>"
+                },
+                {
+                    "description": "Installing a npm package locally",
+                    "command": "npm install <package>"
+                },
+                {
+                    "description": "Install a npm package globally",
+                    "command": "npm install <package> -g"
+                },
+                {
+                    "description": "Installing a specific version",
+                    "command": "npm install <package>@<version>"
+                }
+            ],
+            "title": "find and install"
+        },
+        {
+            "cheats": [
+                {
+                    "description": "Uninstalling a local package",
+                    "command": "npm uninstall <package>"
+                },
+                {
+                    "description": "Uninstalling a global package",
+                    "command": "npm uninstall <package> -g"
+                }
+            ],
+            "title": "uninstall"
+        }
+    ]
+}
