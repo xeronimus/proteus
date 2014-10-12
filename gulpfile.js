@@ -1,14 +1,13 @@
 var
   gulp = require('gulp'),
+  fs = require('fs'),
+  path = require('path'),
   gutil = require('gulp-util'),
   concat = require('gulp-concat'),
+  cheatSheetInputParser = require('./tasks/gulpCheatSheetInputParser'),
   karma = require('karma').server,
   jade = require('gulp-jade'),
   htmlreplace = require('gulp-html-replace'),
-  parser = require('gulp-file-parser'),
-  tap = require('gulp-tap'),
-  fs = require('fs'),
-  path = require('path'),
   del = require('del'),
   browserSync = require('browser-sync'),
   eslint = require('gulp-eslint'),
@@ -45,7 +44,7 @@ gulp.task('stylus', function () {
  * Starts the app with browser-sync
  * */
 var reload = browserSync.reload;
-gulp.task('serve', ['jade', 'stylus', 'parseInputWatch'], function () {
+gulp.task('serve', ['jade', 'stylus', 'createCsStorageWatch'], function () {
   browserSync({
     server: {
       baseDir: 'app'
@@ -59,34 +58,47 @@ gulp.task('serve', ['jade', 'stylus', 'parseInputWatch'], function () {
 /**
  * parses cheat sheet input files and saves them as json in app/storage
  * */
-gulp.task('parseInput', function (done) {
-
-  var cheatSheetInputParser = parser({
-    name: 'cs-input',
-    func: require('./tasks/cheatSheetInputParser').parse,
-    extension: '.json'
-  });
-
-  var processedInputFiles = [];
-  var stream = gulp.src(['input/**/*.txt', '!input/**/index.txt'])
-    .pipe(tap(function (file) {
-      var filename = path.basename(file.path, '.json');
-      gutil.log('Parsing input file', '\'' + gutil.colors.cyan(filename) + '\'');
-      processedInputFiles.push(gutil.replaceExtension(filename, ''));
-    }))
+gulp.task('parseInput', ['cleanCsStorage'], function () {
+  return gulp.src(['input/**/*.txt', '!input/**/index.txt'])
     .pipe(cheatSheetInputParser())
     .pipe(gulp.dest('app/storage/'));
 
-  stream.on('end', function () {
-    var allProcessedFiles = JSON.stringify(processedInputFiles);
-    fs.writeFile('app/storage/index.json', allProcessedFiles, done);
-    gutil.log('Writing index', allProcessedFiles);
+});
+
+gulp.task('cleanCsStorage', function (cb) {
+  del(['./app/storage'], function (err) {
+    cb(err);
+  });
+});
+
+/**
+ * parses input files ([parseInput]) and generates index.json
+ * */
+gulp.task('createCsStorage', ['parseInput'], function (done) {
+  fs.readdir('./app/storage', function (err, files) {
+    if (err) {
+      throw new Error(err);
+    }
+    gutil.log('Saving storage index file: ' + files.length + ' cheat sheets...');
+
+    files.forEach(function (file) {
+      if (path.extname(file) !== '.json') {
+        throw new Error('Expect all files in storage to be json files!');
+      }
+    });
+    fs.writeFile('app/storage/index.json', JSON.stringify(files).replace(/\.json/g, ''), function (err) {
+      if (err) {
+        throw new Error(err);
+      }
+      gutil.log('Storage index file saved');
+      done();
+    })
   });
 
 });
 
-gulp.task('parseInputWatch', ['parseInput'], function () {
-  gulp.watch(['input/**/*.txt', '!input/**/index.txt'], {}, ['parseInput']);
+gulp.task('createCsStorageWatch', ['createCsStorage'], function () {
+  gulp.watch(['input/**/*.txt', '!input/**/index.txt'], {}, ['createCsStorage']);
 });
 
 
@@ -133,7 +145,7 @@ gulp.task('tdd', function (done) {
 /**
  * Build
  * */
-gulp.task('build', [ 'lint', 'jade', 'test', 'infratest', 'parseInput', 'assemble', 'html-replace']);
+gulp.task('build', [ 'lint', 'jade', 'test', 'infratest', 'createCsStorage', 'assemble', 'html-replace']);
 
 
 gulp.task('clean', function (cb) {
