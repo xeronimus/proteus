@@ -2,7 +2,7 @@
 > Simple Searchable Cheat Sheets
 
 
-## Use
+## Usage
 
 Simply visit our project page at http://xeronimus.github.io/proteus
 
