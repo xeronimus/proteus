@@ -2,9 +2,10 @@
 <html>
   <head>
     <meta name="viewport" content="width=device-width, user-scalable=no"/>
+    <script src="vendor.js"></script>
     <link rel="stylesheet" href="styles/app.css">
   </head>
-  <body ng-app="cheatSheets" ng-controller="CheatSheetController as cheatSheet">
+  <body ng-app="cheatSheets" ng-controller="CheatSheetController as cheatSheet" ng-cloak="ng-cloak">
     <div role="navigation" class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
@@ -70,7 +71,6 @@
         <p class="text-muted">Want to add new cheats? See&nbsp;<a href="https://github.com/xeronimus/proteus">github.com/xeronimus/proteus</a></p>
       </div>
     </div>
-    <script src="vendor.js"></script>
     <script src="app.js"></script>
   </body>
 </html>
