@@ -204,7 +204,7 @@ gulp.task('html-replace', ['clean', 'assemble'], function () {
 
 
 /**
- * eploys current build directory to github, branch "gh-pages"
+ * deploys current build directory to github, branch "gh-pages"
  * */
 gulp.task('deploy', function () {
   gulp.src('./build/**/*')
