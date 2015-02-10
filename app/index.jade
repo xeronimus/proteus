@@ -9,12 +9,17 @@ html
     head
         meta(name="viewport" content="width=device-width, user-scalable=no")
 
+        // build:vendorjs
+        script(src="bower_components/angular/angular.js")
+        script(src="bower_components/angular-bootstrap/ui-bootstrap.js")
+        // endbuild
+
         // build:css
         link(href="styles/sandstone.bootstrap.min.css" rel="stylesheet")
         link(href="styles/style.css" rel="stylesheet")
         // endbuild
 
-    body(ng-app="cheatSheets" ng-controller="CheatSheetController as cheatSheet")
+    body(ng-app="cheatSheets" ng-controller="CheatSheetController as cheatSheet" ng-cloak)
         div.navbar.navbar-inverse.navbar-fixed-top(role='navigation')
             div.container
                 div.navbar-header
@@ -29,7 +34,7 @@ html
                         li(ng-repeat="cs in cheatSheet.index")
                             a(ng-click="cheatSheet.selectCheetSheet(cs)" ng-href="#/{{cs}}") {{cs}}
 
-        div.container.main-container(ng-show="cheatSheet.status.id == 2 || cheatSheet.status.id == 1 ")
+        div.container.main-container(ng-show="cheatSheet.status.id == 2 || cheatSheet.status.id == 1 "  )
 
             div.row.cheatsheet-header
                 div.col-sm-7.col-xs-12
@@ -65,11 +70,6 @@ html
             div.container
                 p.text-muted Want to add new cheats? See&nbsp;
                     a(href="https://github.com/xeronimus/proteus") github.com/xeronimus/proteus
-
-        // build:vendorjs
-        script(src="bower_components/angular/angular.js")
-        script(src="bower_components/angular-bootstrap/ui-bootstrap.js")
-        // endbuild
 
         // build:js
         script(src="scripts/module.js")
